@@ -7,5 +7,5 @@ try:
  print('sqr root of',n,':',r)
  print(f'sqr root of {n} : {r:.2f}')
  print('sqr root of %d : %.2f' %(n,r))
-except:
+except ValueError:
  print('\ninvalid input..\n')
