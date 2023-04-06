@@ -1,0 +1,41 @@
+version: '2'
+checks:
+  duplication:
+    enabled: true
+  unused_code:
+    enabled: true
+  complexity:
+    enabled: true
+  test_coverage:
+    enabled: true
+    output:
+      reports:
+        - "coverage/lcov.info"
+engines:
+  eslint:
+    enabled: true
+    config:
+      extends:
+        - "eslint:recommended"
+      rules:
+        semi: 2
+  phpcsfixer:
+    enabled: true
+    config:
+      rules:
+        - "@PSR2"
+prepare:
+  fetch:
+    - url: "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
+      path: "cc-test-reporter"
+      chmod: "+x"
+test:
+  override:
+    - ./cc-test-reporter before-build # Setup test coverage reporting
+    - <command-to-run-tests>
+  after_script:
+    - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi # Upload test coverage report to CodeClimate
+addons:
+  code_climate:
+    repo_token:
+      secure: "aca85e46da413017de52f42b21c009ba1cd4df47"
