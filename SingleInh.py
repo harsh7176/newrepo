@@ -6,7 +6,7 @@ class Alfa:
   this.a=11
   this._b=12
   this.__c=13
- def disp():
+ def disp(this):
   print()
   print(f'Alfa[x] : {Alfa.x}')
   print(f'Alfa[y] : {Alfa._y}')
